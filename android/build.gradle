@@ -1,0 +1,44 @@
+buildscript {
+    ext.kotlin_version = '1.7.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+// Add this configuration for QR scanner
+allprojects {
+    beforeEvaluate { project ->
+        if (project.hasProperty('android')) {
+            if (project.name == 'qr_code_scanner') {
+                project.android {
+                    namespace = "com.github.rmtmckenzie.qr_code_scanner"
+                }
+            }
+        }
+    }
+}
+
+// Your existing configurations
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

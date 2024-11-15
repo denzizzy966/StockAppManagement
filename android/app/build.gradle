@@ -1,0 +1,27 @@
+android {
+    namespace = "com.example.myapp"
+    compileSdk = 30  // Ubah ke 30 untuk Android 11
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "com.example.myapp"
+        minSdk = 21      // Minimum SDK version (disarankan tetap 21 untuk kompatibilitas)
+        targetSdk = 30   // Ubah ke 30 untuk Android 11
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
